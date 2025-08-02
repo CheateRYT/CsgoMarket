@@ -5,14 +5,16 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { ConfigService } from './config/config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
-
+  const configService = app.get(ConfigService);
+  app.useLogger(configService.getLogLevels());
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
+  console.log(`Orchestrator is running on port ${process.env.PORT}`);
 }
 bootstrap();
-console.log(`Orchestrator is running on port ${process.env.PORT}`);
