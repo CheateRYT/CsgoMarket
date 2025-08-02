@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class PaymentStatusService {
-  getStatus() {
+export class PaymentHealthService {
+  getHealth() {
     return { status: 'ok', service: 'payment' };
   }
 }

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PaymentStatusService } from './services/status.service';
+import { PaymentHealthService } from './services/health.service';
 
 @Module({
-  providers: [PaymentStatusService],
-  exports: [PaymentStatusService],
+  providers: [PaymentHealthService],
+  exports: [PaymentHealthService],
 })
 export class PaymentModule {}
