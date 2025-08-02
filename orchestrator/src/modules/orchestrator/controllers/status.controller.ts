@@ -1,27 +1,22 @@
 import { Controller, Get } from '@nestjs/common';
-import { OrchestratorService } from '../orchestrator.service';
+import { StatusService } from '../services/status.service';
 
 @Controller('status')
 export class StatusController {
-  constructor(private readonly orchestratorService: OrchestratorService) {}
+  constructor(private readonly statusService: StatusService) {}
 
   @Get()
   getAllStatuses() {
-    return this.orchestratorService.getAllStatuses();
-  }
-
-  @Get('orchestrator')
-  getOrchestratorStatus() {
-    return this.orchestratorService.getStatus();
+    return this.statusService.getAllStatuses();
   }
 
   @Get('payment')
   getPaymentStatus() {
-    return this.orchestratorService.getPaymentStatus();
+    return this.statusService.getPaymentStatus();
   }
 
   @Get('inventory')
   getInventoryStatus() {
-    return this.orchestratorService.getInventoryStatus();
+    return this.statusService.getInventoryStatus();
   }
 }

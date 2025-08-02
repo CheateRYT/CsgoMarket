@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class InventoryService {
+export class InventoryStatusService {
   getStatus() {
     return { status: 'ok', service: 'inventory' };
   }

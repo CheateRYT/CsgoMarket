@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { InventoryService } from './inventory.service';
+import { InventoryStatusService } from './services/status.service';
 
 @Module({
-  providers: [InventoryService],
-  exports: [InventoryService],
+  providers: [InventoryStatusService],
+  exports: [InventoryStatusService],
 })
 export class InventoryModule {}
