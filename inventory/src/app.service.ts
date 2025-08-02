@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHealth(): { status: string; service: string } {
-    return { status: 'ok', service: 'inventory' };
+  getHealth(): Promise<{ status: string; service: string }> {
+    return Promise.resolve({ status: 'ok', service: 'inventory' });
   }
 }

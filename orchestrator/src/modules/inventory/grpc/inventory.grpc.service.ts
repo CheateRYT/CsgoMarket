@@ -1,6 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import type { ClientGrpc } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { HealthResponse } from 'src/grpc/generated/inventory';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class InventoryGrpcService implements OnModuleInit {
@@ -14,7 +15,8 @@ export class InventoryGrpcService implements OnModuleInit {
     this.inventoryGrpcService = this.client.getService('InventoryService');
   }
 
-  getHealth(): Observable<{ status: string; service: string }> {
-    return this.inventoryGrpcService.GetHealth({});
+  async getHealth(): Promise<HealthResponse> {
+    const observable = this.inventoryGrpcService.GetHealth({});
+    return lastValueFrom(observable);
   }
 }
