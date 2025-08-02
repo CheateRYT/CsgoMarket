@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package inventory;
+
+service InventoryService {
+  rpc GetHealth (HealthRequest) returns (HealthResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  string status = 1;
+  string service = 2;
+}

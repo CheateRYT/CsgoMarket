@@ -17,10 +17,10 @@ export class HealthService {
     return this.inventoryHealthService.getHealth();
   }
 
-  getAllHealthes() {
+  async getAllHealthes() {
     return {
       payment: this.getPaymentHealth(),
-      inventory: this.getInventoryHealth(),
+      inventory: await this.getInventoryHealth(),
     };
   }
 }

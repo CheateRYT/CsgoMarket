@@ -1,20 +1,27 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
 import { ConfigService } from './config/config.service';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
-    new FastifyAdapter(),
+    {
+      transport: Transport.GRPC,
+      options: {
+        package: 'inventory',
+        protoPath: join(__dirname, '..', '..', 'proto', 'inventory.proto'),
+        url: process.env.GRPC_URL ?? '0.0.0.0:50051',
+      },
+    },
   );
   const configService = app.get(ConfigService);
   app.useLogger(configService.getLogLevels());
-  await app.listen(process.env.PORT ?? 3001, '0.0.0.0');
-  console.log(`Inventory is running on port ${process.env.PORT}`);
+  await app.listen();
+  console.log(
+    `Inventory gRPC is running on ${process.env.GRPC_URL ?? '0.0.0.0:50051'}`,
+  );
 }
 bootstrap();
